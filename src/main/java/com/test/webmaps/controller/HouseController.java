@@ -1,8 +1,10 @@
 package com.test.webmaps.controller;
 
 import com.test.webmaps.dto.HouseDTO;
+import com.test.webmaps.entity.House;
 import com.test.webmaps.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,10 @@ public class HouseController {
             @RequestParam(required = false) Long city_id,
             @RequestParam(required = false) Long street_id) {
 
-        return null;
+        Specification<House> specification =
+                Specification.where(service.filterByCityID(city_id)).and(service.filterByStreetID(street_id));
+
+        return service.getHousesWithCountApart(specification);
+
     }
 }

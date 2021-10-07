@@ -20,7 +20,7 @@ public class CityController {
     }
 
     @GetMapping
-    public List<CityDTO> getAllCitiesWithCountHouses() {
-        return null;
+    public List<CityDTO> getCitiesWithCountHouses() {
+        return service.getCitiesWithCountHouses();
     }
 }

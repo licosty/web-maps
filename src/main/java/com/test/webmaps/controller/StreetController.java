@@ -1,8 +1,10 @@
 package com.test.webmaps.controller;
 
 import com.test.webmaps.dto.StreetDTO;
+import com.test.webmaps.entity.Street;
 import com.test.webmaps.service.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +23,9 @@ public class StreetController {
     }
 
     @GetMapping
-    public List<StreetDTO> getAllStreetsWithCountHousesByCityID(@RequestParam Long city_id) {
-        return null;
+    public List<StreetDTO> getStreetsWithCountHousesByCityID(@RequestParam(required = false) Long city_id) {
+        Specification<Street> specification = Specification.where(service.filterByCityID(city_id));
+
+        return service.getStreetsWithCountHousesByCityID(specification);
     }
 }
